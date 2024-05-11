@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,33 +21,39 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RestController
 @RequestMapping("/search")
 public class SearchRestController {
-	
+
 	@Autowired
 	private SearchDao searchDao;
-	
-	//조회 전체
-	@GetMapping("/")
-	public List<SearchVO> selectList(){
-		return searchDao.selectList();
-	}
-	
-	//전체 수정
+
+//	//조회 전체
+//	@GetMapping("/")
+//	public List<SearchVO> selectList(){
+//		return searchDao.selectList();
+//	}
+
+//	// POST 요청으로 조건에 따른 검색 수행
+//	@PostMapping("/list")
+//	public List<SearchVO> selectList(@RequestBody SearchVO searchCriteria) {
+//		return searchDao.selectList();
+//	}
+
+	// 전체 수정
 	@PutMapping("/")
-	public ResponseEntity<?> editAll(@RequestBody SearchVO searchVO){
+	public ResponseEntity<?> editAll(@RequestBody SearchVO searchVO) {
 		boolean result = searchDao.editAll(searchVO);
-		if(result ==false) {
+		if (result == false) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().build();
 	}
-	//일부 수정
+
+	// 일부 수정
 	@PatchMapping("/")
-	public ResponseEntity<?> edit(@RequestBody SearchVO searchVO){
+	public ResponseEntity<?> edit(@RequestBody SearchVO searchVO) {
 		boolean result = searchDao.edit(searchVO);
-		if(result == false) {
+		if (result == false) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().build();
 	}
-	
 }

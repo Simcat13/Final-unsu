@@ -31,6 +31,10 @@ public class SearchDao {
 	public boolean edit(SearchVO searchVO) {
 		return sqlSession.update("search.edit",searchVO)>0;
 	}
+	// 루트 , 시간설정해서 조회
+	 public List<SearchVO> getFilteredRoutes(SearchVO searchCriteria) {
+	        return sqlSession.selectList("selectFilteredRoutes",searchCriteria);
+	    }
 	
 	
 	
